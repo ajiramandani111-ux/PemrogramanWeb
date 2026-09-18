@@ -4,12 +4,16 @@
     margin: 0;
     padding: 0;
 }
+
 body {
     font-family: "Segoe UI", Arial, sans-serif;
-    color: #2b2b2b;
-    background-color: #f5f6f8;
+    color: #2b3543;
     line-height: 1.5;
+    background: linear-gradient(135deg, #ffffff 0%, #eef2f6 45%, #d9e9fa 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
 }
+
 header h1 a {
     color: #ffffff;
     text-decoration: none;
@@ -18,19 +22,23 @@ header h1 a {
 a:hover {
     text-decoration: underline;
 }
+
 /* ===== Header & Navbar (Flexbox) ===== */
 header {
-    background-color: #1d5b8a;
+    background: linear-gradient(90deg, #6fa0d6 0%, #9cc2e8 60%, #c7dcf2 100%);
     color: #fff;
     padding: 1rem 1.5rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
+    position: relative;
+    box-shadow: 0 2px 8px rgba(79, 128, 179, 0.25);
 }
 
 header h1 {
     font-size: 1.4rem;
+    letter-spacing: 0.5px;
 }
 
 header nav ul {
@@ -45,6 +53,10 @@ header nav a {
     text-decoration: none;
 }
 
+.nav-login-btn {
+    color: #fff;
+}
+
 /* ===== Main Layout ===== */
 main {
     max-width: 1000px;
@@ -53,48 +65,79 @@ main {
 }
 
 section {
-    background-color: #fff;
-    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.85);
+    border: 1px solid #dde6ef;
+    border-radius: 10px;
     padding: 1.5rem;
     margin-bottom: 1.5rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 10px rgba(120, 150, 190, 0.12);
 }
 
 section h2 {
     margin-bottom: 1rem;
-    color: #1d5b8a;
+    color: #2f6fae;
 }
 
-/* ===== Kartu Statistik (CSS Grid) ===== */
-main section:nth-of-type(2) {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Maksimal 3 kolom */
-    gap: 1rem;
-}
-
-main section:nth-of-type(2) h2 {
-    grid-column: 1 / -1;
-    text-align: center;
-    margin-bottom: 0;
-}
-
-main section:nth-of-type(2) article {
-    background-color: #eef4fa;
-    border-radius: 8px;
-    padding: 1.25rem;
+/* ===== Sambutan ===== */
+.sambutan {
+    background: linear-gradient(120deg, #ffffff 0%, #eaf2fb 100%);
     text-align: center;
 }
 
-main section:nth-of-type(2) article h3 {
-    font-size: 0.95rem;
+.sambutan h2 {
+    font-size: 1.6rem;
+}
+
+.sambutan p {
     color: #55677a;
-    margin-bottom: 0.5rem;
+    max-width: 640px;
+    margin: 0.5rem auto 0;
 }
 
-main section:nth-of-type(2) article p {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #1d5b8a;
+/* ===== Menu Beranda (CSS Grid) ===== */
+.menu-beranda {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+}
+
+.menu-card {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem 1.25rem;
+    border-radius: 10px;
+    background: linear-gradient(160deg, #ffffff 0%, #e7f0fa 100%);
+    border: 1px solid #dbe7f4;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.menu-card:hover {
+    text-decoration: none;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(79, 128, 179, 0.2);
+}
+
+.menu-card i {
+    font-size: 2.2rem;
+    color: #3f7fc7;
+    margin-bottom: 0.6rem;
+}
+
+.menu-card h3 {
+    font-size: 1.05rem;
+    color: #2f6fae;
+    margin-bottom: 0.3rem;
+}
+
+.menu-card p {
+    font-size: 0.88rem;
+    color: #6b7c8d;
+    margin: 0;
 }
 
 /* ===== Tabel ===== */
@@ -106,20 +149,20 @@ table {
 th, td {
     text-align: left;
     padding: 0.65rem 0.75rem;
-    border-bottom: 1px solid #e2e6ea;
+    border-bottom: 1px solid #e2e8ee;
 }
 
 thead {
-    background-color: #1d5b8a;
+    background: linear-gradient(90deg, #6fa0d6, #9cc2e8);
     color: #fff;
 }
 
 tbody tr:nth-child(even) {
-    background-color: #f7f9fb;
+    background-color: #f4f8fc;
 }
 
 tbody tr:hover {
-    background-color: #eef4fa;
+    background-color: #e9f2fb;
 }
 
 td button {
@@ -141,6 +184,10 @@ td button:last-of-type {
     color: #fff;
 }
 
+.rating-star {
+    color: #f0ad4e;
+}
+
 /* ===== Form ===== */
 form p {
     margin-bottom: 1rem;
@@ -150,7 +197,7 @@ form label {
     display: block;
     margin-bottom: 0.35rem;
     font-weight: 600;
-    color: #444;
+    color: #3a4a5c;
 }
 
 form input,
@@ -158,13 +205,21 @@ form select {
     width: 100%;
     max-width: 400px;
     padding: 0.55rem 0.7rem;
-    border: 1px solid #cdd4da;
+    border: 1px solid #cdd9e5;
     border-radius: 4px;
     font-size: 1rem;
+    background-color: #fff;
+}
+
+form input:focus,
+form select:focus {
+    outline: none;
+    border-color: #4f8fd1;
+    box-shadow: 0 0 0 3px rgba(79, 143, 209, 0.15);
 }
 
 form button[type="submit"] {
-    background-color: #1d5b8a;
+    background: linear-gradient(90deg, #4f8fd1, #6fa0d6);
     color: #fff;
     border: none;
     padding: 0.6rem 1.5rem;
@@ -174,22 +229,42 @@ form button[type="submit"] {
 }
 
 form button[type="submit"]:hover {
-    background-color: #164869;
+    background: linear-gradient(90deg, #3d7bc0, #5c8fc7);
+}
+
+.btn-batal {
+    display: inline-block;
+    margin-left: 0.5rem;
+    color: #55677a;
+    text-decoration: none;
+    padding: 0.6rem 1rem;
+}
+
+.btn-batal:hover {
+    text-decoration: underline;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-actions {
+    margin-top: 1.5rem;
 }
 
 /* ===== Footer ===== */
 footer {
     text-align: center;
     padding: 1.25rem;
-    color: #7a8794;
+    color: #6b7c8d;
     font-size: 0.9rem;
 }
 
 /* ===== Responsive Breakpoints ===== */
 
-/* 1. Layar Sedang / Tablet (Maks 900px) -> Berubah jadi 2 kolom */
+/* 1. Layar Sedang / Tablet (Maks 900px) */
 @media (max-width: 900px) {
-    main section:nth-of-type(2) {
+    .menu-beranda {
         grid-template-columns: repeat(2, 1fr);
     }
 }
@@ -205,8 +280,7 @@ footer {
         padding: 1rem;
     }
 
-    /* KUNCI: 1 kolom penuh di layar HP */
-    main section:nth-of-type(2) {
+    .menu-beranda {
         grid-template-columns: 1fr;
         gap: 0.75rem;
     }
@@ -221,17 +295,16 @@ footer {
     width: 100%;
     max-width: 320px;
     padding: 0.5rem 0.75rem;
-    border: 1px solid #cdd4da;
-    border-radius: 4px;
+    border: 1px solid #cdd9e5;
+    border-radius: 50px;
+    outline: none;
+}
+
+.search-box input:focus {
+    border-color: #4f8fd1;
 }
 
 /* ===== Hamburger Menu ===== */
-
-header {
-    position: relative;
-}
-
-/* Tombol hamburger disembunyikan di desktop */
 .nav-toggle-label {
     display: none;
     font-size: 1.6rem;
@@ -240,8 +313,6 @@ header {
     border: none;
     cursor: pointer;
 }
-
-/* ===== Navbar Desktop ===== */
 
 header nav {
     width: auto;
@@ -252,73 +323,38 @@ header nav {
     opacity: 1;
 }
 
-header nav ul {
-    list-style: none;
-    display: flex;
-    gap: 1.25rem;
-}
-
-/* ===== Navbar HP ===== */
-
 @media (max-width: 576px) {
-
-    /* Tampilkan hamburger */
     .nav-toggle-label {
         display: block;
     }
 
-    /* Navbar disembunyikan tetapi tetap bisa dianimasikan */
     header nav {
         width: 100%;
         order: 3;
         margin-top: 1rem;
-
         max-height: 0;
         overflow: hidden;
         opacity: 0;
-
         transition:
             max-height 0.4s ease,
             opacity 0.3s ease;
     }
 
-    /* Ketika hamburger diklik */
     header nav.nav-open {
         max-height: 300px;
         opacity: 1;
     }
 
-    /* Menu menjadi vertikal */
     header nav ul {
         flex-direction: column;
         gap: 0.75rem;
     }
 }
-#search-input {
-    border-radius: 50px;
-    padding: 8px 18px;
-    border: 1px solid #ccc;
-    outline: none;
-    box-sizing: border-box;
-}
 
-#search-input:focus {
-    border-color: #0d6efd;
+/* ===== Loading Indicator ===== */
+#loading-indicator {
+    display: none;
+    text-align: center;
+    color: #6b7c8d;
+    padding: 1rem 0;
 }
-
-.card-link {
-    text-decoration: none;
-    color: inherit;
-    display: block; /* atau display: flex/inline-block tergantung tata letak flex/grid Anda */
-}
-
-/* Opsional: Efek saat kotak di-hover agar user tahu kotaknya bisa diklik */
-.card-link article {
-    cursor: pointer;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.card-link article:hover {
-    transform: translateY(-4px);
-}
-

@@ -10,10 +10,7 @@ function initNavToggle() {
     });
 }
 
-
-// Memakai event delegation di document karena baris tabel sekarang
-// dirender dinamis via fetch (lihat buku.js/anggota.js) sehingga
-// tombol .btn-hapus belum tentu ada saat DOMContentLoaded.
+// ===== Konfirmasi hapus (event delegation, baris dirender dinamis) =====
 function initHapusConfirm() {
     document.addEventListener("click", function (e) {
         const btn = e.target.closest(".btn-hapus");
@@ -28,53 +25,7 @@ function initHapusConfirm() {
     });
 }
 
-
-// ===== Validasi form =====
-function tampilkanError(input, pesan) {
-    hapusError(input);
-
-    const span = document.createElement("span");
-    span.className = "error";
-    span.textContent = pesan;
-
-    input.insertAdjacentElement("afterend", span);
-}
-
-function hapusError(input) {
-    const next = input.nextElementSibling;
-
-    if (next && next.classList.contains("error")) {
-        next.remove();
-    }
-}
-
-function initValidasiForm() {
-    const form = document.getElementById("form-tambah");
-
-    if (!form) return;
-
-    form.addEventListener("submit", function (e) {
-        let valid = true;
-
-        const judul = form.querySelector(
-            "[name='judul'], [name='nama']"
-        );
-
-        if (judul && judul.value.trim() === "") {
-            tampilkanError(judul, "Field ini wajib diisi.");
-            valid = false;
-        } else if (judul) {
-            hapusError(judul);
-        }
-
-        if (!valid) {
-            e.preventDefault();
-        }
-    });
-}
-
-
-// ===== Filter tabel =====
+// ===== Filter tabel (kolom pencarian) =====
 function initTableFilter() {
     const input = document.getElementById("search-input");
     const table = document.querySelector(".table-responsive table");
@@ -87,56 +38,36 @@ function initTableFilter() {
 
         rows.forEach(function (row) {
             const teks = row.textContent.toLowerCase();
-
-            row.style.display =
-                teks.includes(keyword) ? "" : "none";
+            row.style.display = teks.includes(keyword) ? "" : "none";
         });
     });
 }
 
-
-// ===== Jalankan semua fungsi =====
-document.addEventListener("DOMContentLoaded", function () {
-    initNavToggle();
-    initHapusConfirm();
-    initTableFilter();
-    initValidasiForm();
-
-    // Cek halaman yang sedang dibuka
-    const path = window.location.pathname;
-
-    if (path.includes("buku")) {
-        muatDaftarBuku();
-    } else if (path.includes("anggota")) {
-        muatDaftarAnggota();
-    }
-});
-
-async function muatDaftarBuku() {
+// ===== Muat Daftar Laptop =====
+async function muatDaftarLaptop() {
     const tbody = document.querySelector(".table-responsive table tbody");
     const loading = document.getElementById("loading-indicator");
     if (!tbody) return;
 
-    loading.style.display = "block";
+    if (loading) loading.style.display = "block";
     tbody.innerHTML = "";
 
     try {
-        // simulasi delay jaringan agar loading indicator terlihat
-        await new Promise((resolve) => setTimeout(resolve, 600));
+        await new Promise((resolve) => setTimeout(resolve, 500));
 
-        const res = await fetch("../data/buku.json");
+        const res = await fetch("../data/laptop.json");
         if (!res.ok) {
             throw new Error("Gagal mengambil data (status " + res.status + ")");
         }
-        const daftarBuku = await res.json();
+        const daftarLaptop = await res.json();
 
-        daftarBuku.forEach(function (buku) {
+        daftarLaptop.forEach(function (laptop) {
             const tr = document.createElement("tr");
             tr.innerHTML =
-                "<td>" + buku.judul + "</td>" +
-                "<td>" + buku.pengarang + "</td>" +
-                "<td>" + buku.tahun + "</td>" +
-                "<td>" + buku.stok + "</td>" +
+                "<td>" + laptop.merk + "</td>" +
+                "<td>" + laptop.seri + "</td>" +
+                "<td>" + laptop.tahun + "</td>" +
+                "<td>" + laptop.stok + "</td>" +
                 "<td>" +
                 "<button type=\"button\">Edit</button> " +
                 "<button type=\"button\" class=\"btn-hapus\">Hapus</button>" +
@@ -147,13 +78,12 @@ async function muatDaftarBuku() {
         tbody.innerHTML =
             "<tr><td colspan=\"5\">Gagal memuat data: " + err.message + "</td></tr>";
     } finally {
-        loading.style.display = "none";
+        if (loading) loading.style.display = "none";
     }
 }
 
-//document.addEventListener("DOMContentLoaded", muatDaftarBuku);
-
-async function muatDaftarAnggota() {
+// ===== Muat Daftar Best Seller =====
+async function muatDaftarBestSeller() {
     const tbody = document.querySelector(".table-responsive table tbody");
     const loading = document.getElementById("loading-indicator");
     if (!tbody) return;
@@ -162,35 +92,83 @@ async function muatDaftarAnggota() {
     tbody.innerHTML = "";
 
     try {
-        await new Promise((resolve) => setTimeout(resolve, 600));
+        await new Promise((resolve) => setTimeout(resolve, 500));
 
-        const res = await fetch("../data/anggota.json");
+        const res = await fetch("../data/bestseller.json");
         if (!res.ok) {
             throw new Error("Gagal mengambil data (status " + res.status + ")");
         }
-        const daftarAnggota = await res.json();
+        const daftarBestSeller = await res.json();
 
-        daftarAnggota.forEach(function (anggota) {
+        daftarBestSeller.forEach(function (item) {
             const tr = document.createElement("tr");
             tr.innerHTML =
-                // Pakai anggota.No_Anggota atau anggota.no_anggota agar aman
-                "<td>" + (anggota.No_Anggota || anggota.no_anggota) + "</td>" +
-                "<td>" + anggota.nama + "</td>" +
-                "<td>" + anggota.alamat + "</td>" +
-                "<td>" + anggota.no_hp + "</td>" +
+                "<td>" + item.merk + "</td>" +
+                "<td>" + item.seri + "</td>" +
+                "<td>" + item.total_penjualan + " unit</td>" +
+                "<td><span class=\"rating-star\">&#9733;</span> " + item.rating + "</td>" +
                 "<td>" +
-                '<button type="button">Edit</button> ' +
-                '<button type="button" class="btn-hapus">Hapus</button>' +
+                "<button type=\"button\">Edit</button> " +
+                "<button type=\"button\" class=\"btn-hapus\">Hapus</button>" +
                 "</td>";
             tbody.appendChild(tr);
         });
-
-        // Pasang ulang event listener hapus untuk baris baru
-        initHapusConfirm();
     } catch (err) {
         tbody.innerHTML =
-            '<tr><td colspan="5">Gagal memuat data: ' + err.message + "</td></tr>";
+            "<tr><td colspan=\"5\">Gagal memuat data: " + err.message + "</td></tr>";
     } finally {
         if (loading) loading.style.display = "none";
     }
 }
+async function muatDaftarLaptop() {
+    const tbody = document.querySelector(".table-responsive table tbody");
+    const loading = document.getElementById("loading-indicator");
+    if (!tbody) return;
+
+    if (loading) loading.style.display = "block";
+    tbody.innerHTML = "";
+
+    try {
+        await new Promise((resolve) => setTimeout(resolve, 500));
+
+        const res = await fetch("../data/laptop.json");
+        if (!res.ok) {
+            throw new Error("Gagal mengambil data (status " + res.status + ")");
+        }
+        const daftarLaptop = await res.json();
+
+        daftarLaptop.forEach(function (laptop) {
+            const tr = document.createElement("tr");
+            tr.innerHTML =
+                "<td>" + laptop.merk + "</td>" +
+                "<td>" + laptop.seri + "</td>" +
+                "<td>" + laptop.tahun + "</td>" +
+                "<td>Rp" + Number(laptop.harga).toLocaleString("id-ID") + "</td>" +
+                "<td>" + laptop.stok + "</td>" +
+                "<td>" +
+                "<button type=\"button\">Edit</button> " +
+                "<button type=\"button\" class=\"btn-hapus\">Hapus</button>" +
+                "</td>";
+            tbody.appendChild(tr);
+        });
+    } catch (err) {
+        tbody.innerHTML =
+            "<tr><td colspan=\"6\">Gagal memuat data: " + err.message + "</td></tr>";
+    } finally {
+        if (loading) loading.style.display = "none";
+    }
+}
+// ===== Jalankan semua fungsi =====
+document.addEventListener("DOMContentLoaded", function () {
+    initNavToggle();
+    initHapusConfirm();
+    initTableFilter();
+
+    const path = window.location.pathname;
+
+    if (path.includes("laptop")) {
+        muatDaftarLaptop();
+    } else if (path.includes("bestseller")) {
+        muatDaftarBestSeller();
+    }
+});

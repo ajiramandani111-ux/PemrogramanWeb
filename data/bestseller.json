@@ -1,0 +1,7 @@
+[
+    { "merk": "Apple", "seri": "MacBook Air M3", "total_penjualan": 152, "rating": 4.9 },
+    { "merk": "ASUS", "seri": "ROG Strix G16", "total_penjualan": 121, "rating": 4.7 },
+    { "merk": "Lenovo", "seri": "ThinkPad X1 Carbon", "total_penjualan": 98, "rating": 4.8 },
+    { "merk": "Acer", "seri": "Swift Go 14", "total_penjualan": 87, "rating": 4.6 },
+    { "merk": "Dell", "seri": "XPS 13", "total_penjualan": 76, "rating": 4.5 }
+]

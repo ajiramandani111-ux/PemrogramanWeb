@@ -1,0 +1,10 @@
+[
+    { "merk": "ASUS", "seri": "ROG Strix G16", "tahun": 2025, "harga": 15000000, "stok": 7 },
+    { "merk": "Lenovo", "seri": "ThinkPad X1 Carbon", "tahun": 2024, "harga": 12000000, "stok": 5 },
+    { "merk": "Apple", "seri": "MacBook Air M3", "tahun": 2024, "harga": 18000000, "stok": 10 },
+    { "merk": "Dell", "seri": "XPS 13", "tahun": 2023, "harga": 14000000, "stok": 4 },
+    { "merk": "HP", "seri": "Pavilion Aero 13", "tahun": 2023, "harga": 11000000, "stok": 6 },
+    { "merk": "Acer", "seri": "Swift Go 14", "tahun": 2025, "harga": 13000000, "stok": 8 },
+    { "merk": "MSI", "seri": "Katana 15", "tahun": 2024, "harga": 16000000, "stok": 3 },
+    { "merk": "ASUS", "seri": "Zenbook 14 OLED", "tahun": 2025, "harga": 17000000, "stok": 9 }
+]
